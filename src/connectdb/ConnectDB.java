@@ -16,6 +16,9 @@ public class ConnectDB {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        SimpleObject obj1 = new SimpleObject(0, "obj1", 10.5);
+        
+        System.out.println(obj1.toString());
     }
     
 }
