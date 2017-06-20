@@ -9,16 +9,33 @@ package connectdb;
  *
  * @author Didier
  */
-public class ConnectDB {
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        SimpleObject obj1 = new SimpleObject(0, "obj1", 10.5);
-        
-        System.out.println(obj1.toString());
+public class ConnectDB {
+    private Connection con;
+
+    public ConnectDB(String host, String username, String password) {
+        try {
+            this.con = DriverManager.getConnection(host, username, password);
+        } catch (SQLException exc) {
+            System.out.println("Connection to database failed.");
+            System.out.println(exc.getMessage());
+        }
     }
-    
+
+    public ResultSet executeSQL(String sql) {
+        try {
+            Statement stmt = this.con.createStatement();
+            return stmt.executeQuery(sql);
+        } catch (SQLException exc) {
+            System.out.println("ExecuteSQL failed.");
+            System.out.println(exc.getMessage());
+        }
+        return null;
+    }
+
 }
